@@ -972,7 +972,7 @@ module.exports = function (x) {
 };
 
 },{}],36:[function(require,module,exports){
-// ES2015 Symbol polyfill for environments that do not support it (or partially support it)
+// ES2015 Symbol polyfill for environments that do not (or partially) support it
 
 'use strict';
 
@@ -1017,7 +1017,7 @@ var generateName = (function () {
 // Internal constructor (not one exposed) for creating Symbol instances.
 // This one is used to ensure that `someSymbol instanceof Symbol` always return false
 HiddenSymbol = function Symbol(description) {
-	if (this instanceof HiddenSymbol) throw new TypeError('TypeError: Symbol is not a constructor');
+	if (this instanceof HiddenSymbol) throw new TypeError('Symbol is not a constructor');
 	return SymbolPolyfill(description);
 };
 
@@ -1025,7 +1025,7 @@ HiddenSymbol = function Symbol(description) {
 // (returns instances of HiddenSymbol)
 module.exports = SymbolPolyfill = function Symbol(description) {
 	var symbol;
-	if (this instanceof Symbol) throw new TypeError('TypeError: Symbol is not a constructor');
+	if (this instanceof Symbol) throw new TypeError('Symbol is not a constructor');
 	if (isNativeSafe) return NativeSymbol(description);
 	symbol = create(HiddenSymbol.prototype);
 	description = (description === undefined ? '' : String(description));
@@ -1045,8 +1045,8 @@ defineProperties(SymbolPolyfill, {
 		for (key in globalSymbols) if (globalSymbols[key] === s) return key;
 	}),
 
-	// If there's native implementation of given symbol, let's fallback to it
-	// to ensure proper interoperability with other native functions e.g. Array.from
+	// To ensure proper interoperability with other native functions (e.g. Array.from)
+	// fallback to eventual native implementation of given symbol
 	hasInstance: d('', (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill('hasInstance')),
 	isConcatSpreadable: d('', (NativeSymbol && NativeSymbol.isConcatSpreadable) ||
 		SymbolPolyfill('isConcatSpreadable')),
@@ -1483,7 +1483,7 @@ Object.defineProperties(exports, {
 	resume: d(function () { return $common; })
 });
 
-},{"./lib/ws":47,"./lib/ws-eol":45,"d":48,"es5-ext/array/from":7,"es5-ext/object/primitive-set":26,"es5-ext/object/valid-callable":27,"es5-ext/object/valid-value":28}],44:[function(require,module,exports){
+},{"./lib/ws":47,"./lib/ws-eol":45,"d":3,"es5-ext/array/from":7,"es5-ext/object/primitive-set":26,"es5-ext/object/valid-callable":27,"es5-ext/object/valid-value":28}],44:[function(require,module,exports){
 // Credit: Mathias Bynens -> https://mathiasbynens.be/demo/javascript-identifier-regex
 
 'use strict';
@@ -1519,105 +1519,6 @@ module.exports = primitiveSet.apply(null,
 	Object.keys(eol).concat(Object.keys(inline)));
 
 },{"./ws-eol":45,"./ws-inline":46,"es5-ext/object/primitive-set":26}],48:[function(require,module,exports){
-arguments[4][3][0].apply(exports,arguments)
-},{"dup":3,"es5-ext/object/assign":18,"es5-ext/object/is-callable":21,"es5-ext/object/normalize-options":25,"es5-ext/string/#/contains":29}],49:[function(require,module,exports){
-module.exports={
-  "name": "networked-aframe",
-  "version": "0.1.0",
-  "description": "A web framework for building networked A-Frame VR experiences.",
-  "homepage": "",
-  "main": "dist/networked-aframe.js",
-  "author": "Hayden Lee <haydenjameslee@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/haydenjameslee/networked-aframe/issues"
-  },
-  "scripts": {
-    "build": "browserify src/index.js -o server/static/build.js",
-    "easyrtc-install": "cd ./node_modules/easyrtc; npm install; cd ../../server; npm install; cd ../",
-    "easyrtc-start": "node ./server/server.js",
-    "dev": "npm run watch & npm run easyrtc-start",
-    "dist": "webpack --config webpack.config.js && webpack -p --config webpack.prod.config.js",
-    "lint": "semistandard -v | snazzy",
-    "prepublish": "npm run dist",
-    "preghpages": "npm run build && shx rm -rf gh-pages && shx mkdir gh-pages && shx cp -r examples/* gh-pages",
-    "ghpages": "npm run preghpages && ghpages -p gh-pages",
-    "start": "npm run dev",
-    "test": "karma start ./tests/unit/karma.conf.js",
-    "test:firefox": "karma start ./tests/unit/karma.conf.js --browsers Firefox",
-    "test:chrome": "karma start ./tests/unit/karma.conf.js --browsers Chrome",
-    "watch": "watchify src/index.js -o server/static/build.js -v"
-  },
-  "repository": "haydenjameslee/networked-aframe",
-  "dependencies": {
-    "easyrtc": "1.1.0",
-    "express": "^4.10.7",
-    "aframe-lerp-component": "^1.0.1",
-    "aframe-template-component": "3.1.2",
-    "serve-static": "^1.8.0",
-    "socket.io": "^1.4.5",
-    "socket.io-client": "^1.4.5"
-  },
-  "devDependencies": {
-    "aframe": "0.5.0",
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-es2015": "^6.22.0",
-    "browserify": "^14.0.0",
-    "browserify-derequire": "^0.9.4",
-    "browserify-istanbul": "^2.0.0",
-    "chai": "^3.5.0",
-    "chai-shallow-deep-equal": "^1.4.0",
-    "chalk": "^1.1.3",
-    "deep-equal": "^1.0.1",
-    "karma": "^1.4.1",
-    "karma-browserify": "^5.1.1",
-    "karma-chai-shallow-deep-equal": "0.0.4",
-    "karma-chrome-launcher": "^2.0.0",
-    "karma-coverage": "^1.1.1",
-    "karma-env-preprocessor": "^0.1.1",
-    "karma-firefox-launcher": "^1.0.0",
-    "karma-mocha": "^1.3.0",
-    "karma-mocha-reporter": "^2.1.0",
-    "karma-sinon-chai": "^1.2.4",
-    "mocha": "^3.2.0",
-    "node-fetch": "^1.6.3",
-    "semistandard": "^8.0.0",
-    "sinon": "^1.17.5",
-    "sinon-chai": "^2.8.0",
-    "snazzy": "^6.0.0",
-    "watchify": "^3.9.0",
-    "webpack": "^1.13.0"
-  },
-  "keywords": [
-    "3d",
-    "aframe",
-    "cardboard",
-    "components",
-    "multiplayer",
-    "networked",
-    "networking",
-    "oculus",
-    "three",
-    "three.js",
-    "rift",
-    "social",
-    "vive",
-    "vr",
-    "web-components",
-    "webvr"
-  ],
-  "engines": {
-    "node": ">= 7.4.0",
-    "npm": "^4.0.5"
-  },
-  "babel": {
-    "presets": ["es2015"]
-  }
-}
-
-},{}],50:[function(require,module,exports){
-var package = require('../package');
 var options = require('./NafOptions');
 var util = require('./NafUtil');
 var NafLogger = require('./NafLogger');
@@ -1633,7 +1534,7 @@ naf.options = options;
 naf.utils = util;
 naf.log = new NafLogger();
 naf.schemas = new Schemas();
-naf.version = package.version;
+naf.version = "0.1.0";
 
 var entities = new NetworkEntities();
 var connection = new NetworkConnection(entities);
@@ -1641,15 +1542,15 @@ naf.connection = naf.c = connection;
 naf.entities = naf.e = entities;
 
 module.exports = window.NAF = naf;
-},{"../package":49,"./NafLogger":52,"./NafOptions":53,"./NafUtil":54,"./NetworkConnection":55,"./NetworkEntities":56,"./Schemas":57}],51:[function(require,module,exports){
+},{"./NafLogger":50,"./NafOptions":51,"./NafUtil":52,"./NetworkConnection":53,"./NetworkEntities":54,"./Schemas":55}],49:[function(require,module,exports){
 class NafInterface {
   notImplemented() {
     console.error('Interface method not implemented.');
   }
 }
 module.exports = NafInterface;
-},{}],52:[function(require,module,exports){
-class Logger {
+},{}],50:[function(require,module,exports){
+class NafLogger {
 
   constructor() {
     this.debug = false;
@@ -1670,8 +1571,8 @@ class Logger {
   }
 }
 
-module.exports = Logger;
-},{}],53:[function(require,module,exports){
+module.exports = NafLogger;
+},{}],51:[function(require,module,exports){
 var options = {
   debug: false,
   updateRate: 15, // How often network components call `sync`
@@ -1680,7 +1581,7 @@ var options = {
 };
 
 module.exports = options;
-},{}],54:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 module.exports.whenEntityLoaded = function(entity, callback) {
   if (entity.hasLoaded) { callback(); }
   entity.addEventListener('loaded', function () {
@@ -1707,7 +1608,7 @@ module.exports.now = function() {
 };
 
 module.exports.delimiter = '|||';
-},{}],55:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 var WebRtcInterface = require('./webrtc_interfaces/WebRtcInterface');
 
 class NetworkConnection {
@@ -1879,7 +1780,7 @@ class NetworkConnection {
 }
 
 module.exports = NetworkConnection;
-},{"./webrtc_interfaces/WebRtcInterface":64}],56:[function(require,module,exports){
+},{"./webrtc_interfaces/WebRtcInterface":62}],54:[function(require,module,exports){
 class NetworkEntities {
 
   constructor() {
@@ -2047,7 +1948,7 @@ class NetworkEntities {
 }
 
 module.exports = NetworkEntities;
-},{}],57:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 class Schemas {
 
   constructor() {
@@ -2092,7 +1993,7 @@ class Schemas {
 }
 
 module.exports = Schemas;
-},{}],58:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 AFRAME.registerComponent('follow-camera', {
   camera: {},
 
@@ -2115,7 +2016,7 @@ AFRAME.registerComponent('follow-camera', {
     this.camera = document.querySelector('a-camera') || document.querySelector('[camera]');
   }
 });
-},{}],59:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 var naf = require('../NafIndex');
 
 var EasyRtcInterface = require('../webrtc_interfaces/EasyRtcInterface');
@@ -2154,7 +2055,7 @@ AFRAME.registerComponent('network-scene', {
     naf.connection.connect(this.data.app, this.data.room, this.data.audio);
   }
 });
-},{"../NafIndex":50,"../webrtc_interfaces/EasyRtcInterface":63}],60:[function(require,module,exports){
+},{"../NafIndex":48,"../webrtc_interfaces/EasyRtcInterface":61}],58:[function(require,module,exports){
 var naf = require('../NafIndex');
 var deepEqual = require('deep-equal');
 
@@ -2500,7 +2401,7 @@ AFRAME.registerComponent('network', {
     return a.selector == b.selector && a.component == b.component;
   }
 });
-},{"../NafIndex":50,"deep-equal":4}],61:[function(require,module,exports){
+},{"../NafIndex":48,"deep-equal":4}],59:[function(require,module,exports){
 AFRAME.registerComponent('show-child', {
   schema: {
     type: 'int',
@@ -2527,7 +2428,7 @@ AFRAME.registerComponent('show-child', {
     }
   }
 });
-},{}],62:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 // Dependencies
 require('aframe-template-component');
 require('aframe-lerp-component');
@@ -2545,7 +2446,7 @@ require('./components/show-child');
 
 
 
-},{"./NafIndex.js":50,"./components/follow-camera":58,"./components/network":60,"./components/network-scene":59,"./components/show-child":61,"aframe-lerp-component":1,"aframe-template-component":2}],63:[function(require,module,exports){
+},{"./NafIndex.js":48,"./components/follow-camera":56,"./components/network":58,"./components/network-scene":57,"./components/show-child":59,"aframe-lerp-component":1,"aframe-template-component":2}],61:[function(require,module,exports){
 var naf = require('../NafIndex');
 var WebRtcInterface = require('./WebRtcInterface');
 
@@ -2675,7 +2576,7 @@ class EasyRtcInterface extends WebRtcInterface {
 }
 
 module.exports = EasyRtcInterface;
-},{"../NafIndex":50,"./WebRtcInterface":64}],64:[function(require,module,exports){
+},{"../NafIndex":48,"./WebRtcInterface":62}],62:[function(require,module,exports){
 var NafInterface = require('../NafInterface');
 
 class WebRtcInterface extends NafInterface {
@@ -2711,4 +2612,4 @@ WebRtcInterface.CONNECTING = 'CONNECTING';
 WebRtcInterface.NOT_CONNECTED = 'NOT_CONNECTED';
 
 module.exports = WebRtcInterface;
-},{"../NafInterface":51}]},{},[62]);
+},{"../NafInterface":49}]},{},[60]);
