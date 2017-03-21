@@ -5,8 +5,8 @@
 	<script src="easyrtc/easyrtc.js"></script>
 	<script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
 	<!-- include aframe-artoolkit -->
-	<script src="vendor/ar.js/aframe/build/aframe-ar.js"></script>
-	<script>THREEx.ArToolkitContext.baseURL = 'vendor/ar.js/three.js/'</script>
+	<script src="vendor/ar-link.js/aframe/build/aframe-ar.js"></script>
+	<script>THREEx.ArToolkitContext.baseURL = 'vendor/ar-link.js/three.js/'</script>
 	<script>
 	function onConnect () {
 		var position = '0 1.3 0';
@@ -17,7 +17,7 @@
 </head>
 <body style='margin : 0px; overflow: hidden;'>
 	<!-- <a-scene  embedded artoolkit='sourceType: webcam;'> -->
-	<a-scene  embedded artoolkit='sourceType: webcam;' network-scene="app: myApp;room: room1;audio: false;debug: true;">
+	<a-scene  embedded artoolkit='sourceType: webcam; debug: true' network-scene="app: myApp;room: room1;audio: false;debug: true;">
 		<a-assets>
 			<script id="avatar-template" type="text/html">	
 				<a-entity class="avatar" rotation='0 0 0'>
